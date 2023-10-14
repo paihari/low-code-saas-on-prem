@@ -1,0 +1,49 @@
+title: "Create three-node deployment of a High Available PostgreSQL database on Oracle Cloud Infrastructure Compute instances."
+stackDescription: "Deploy typical three-node deployment of a High Available PostgreSQL database on Oracle Cloud Infrastructure Compute instances."
+schemaVersion: 1.1.0
+version: "20190404"
+locale: "en"
+
+variableGroups:
+- title: General Configuration
+  variables:  
+  - compartment_ocid
+  - vcn_id
+  - windmill_subnet_cidr
+
+
+variables:
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    required: true
+    visible: true
+    title: Compartment
+    description: "Compartment where you want to create the solution resources"
+  
+  vcn_id:
+    type: oci:core:vcn:id
+    required: true
+    visible: true
+    title: VCN
+    description: "VCN where you want to create the solution resource"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  windmill_subnet_cidr:
+    type: string
+    visible: true
+    required: false
+    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+    title: "VCN CIDR"
+    description: "Choose Subnet CIDR for your Windmill deployments."
+    default: "10.1.1.0/24"   
+
+  availability_domain:
+    type: oci:identity:availabilitydomain:name
+    required: true
+    visible: true
+    title: Availability Domain
+    description: "Choose AD for your Windmill deployments."
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    
