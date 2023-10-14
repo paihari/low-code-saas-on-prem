@@ -1,4 +1,6 @@
 .terraform*
 terraform.tfvars
 terraform.tfstate*
+bantwal*
+
 
