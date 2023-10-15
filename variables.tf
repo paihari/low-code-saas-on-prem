@@ -36,6 +36,11 @@ variable "availability_domain" {
 
 }
 
+variable "database_url" {
+
+
+}
+
 
 variable "container_restart_policy" {
   description = "(Optional) Container restart policy"
